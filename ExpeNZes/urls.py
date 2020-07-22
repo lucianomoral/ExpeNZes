@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from apps.main.views import MovimientoFinancieroList, MovimientoFinancieroCreate, MovimientoFinancieroUpdate, MovimientoFinancieroDelete, IndexLogin, log_user_out, IndexLoginError#, validateLogin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', IndexLogin.as_view(), name="indexLogin"),
+    path('validateLogin/', IndexLogin.as_view(), name="validateLogin"),
+    path('indexLoginError/',IndexLoginError.as_view(), name='indexLoginError'),
+    path('logout/', log_user_out, name="logout"),
+    path('listarMovimientosFinancieros/', MovimientoFinancieroList.as_view(), name='listarMovimientosFinancieros'),
+    path('crearMovimientoFinanciero/', MovimientoFinancieroCreate.as_view(), name='crearMovimientoFinanciero'),
+    path('actualizarMovimientoFinanciero/<int:pk>', MovimientoFinancieroUpdate.as_view(), name='actualizarMovimientoFinanciero'),
+    path('eliminarMovimientoFinanciero/<int:pk>', MovimientoFinancieroDelete.as_view(), name='eliminarMovimientoFinanciero'),
 ]

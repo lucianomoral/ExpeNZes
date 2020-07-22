@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block titulo %} Lista de Movimientos {% endblock titulo %}
+{% block cuerpo %}
+<h1> Movimientos </h1>
+<p>
+    <h2> Usuario logueado: {{ user.get_username }} </h2><button> <a href="{% url 'logout' %}"> Log out </a></button>
+</p>
+
+<table border=2>
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Concepto</th>
+            <th>Monto</th>
+            <th>Comentario</th>
+            <th>id</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movimiento_financiero in object_list %}
+        <tr>
+            <td> {{ movimiento_financiero.fecha }} </td>
+            <td> {{ movimiento_financiero.categoria_movimiento_financiero }} </td>
+            <td> {{ movimiento_financiero.monto }} </td>
+            <td> {{ movimiento_financiero.comentario }} </td>
+            <td> {{ movimiento_financiero.id }} </td>
+            <td> <a href="{% url 'actualizarMovimientoFinanciero' movimiento_financiero.id %}"> Editar </a> </td>
+            <td> <a href="{% url 'eliminarMovimientoFinanciero' movimiento_financiero.id %}"> Eliminar </a> </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<button> <a href="{% url 'crearMovimientoFinanciero' %}"> Crear </a></button>
+
+{% endblock cuerpo %}

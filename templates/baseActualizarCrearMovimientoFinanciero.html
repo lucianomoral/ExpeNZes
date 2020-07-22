@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block cuerpo %}
+
+    <h1> {% block header1 %} {% endblock header1 %} </h1>   
+
+    <form method="post">
+
+        {% csrf_token %}
+    
+        <p> {{ form.monto.label }} {{ form.monto }} </p>
+        <p> {{ form.categoria_movimiento_financiero.label }} {{ form.categoria_movimiento_financiero }} </p>
+        <p> {{ form.fecha.label }} {{ form.fecha }} </p>
+        <p> {{ form.comentario.label }} {{ form.comentario }} </p>
+    
+    <button type="submit"> {% block label_boton_accion %} {% endblock label_boton_accion %} </button>
+    <button> <a href="{% url 'listarMovimientosFinancieros' %}"> Volver </a></button>
+
+{% endblock cuerpo %}
