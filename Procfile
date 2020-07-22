@@ -1,0 +1,1 @@
+web: gunicorn ExpeNZes.wsgi --log-file -
