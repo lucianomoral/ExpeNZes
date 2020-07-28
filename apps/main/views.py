@@ -76,12 +76,39 @@ class MovimientoFinancieroUpdate(UpdateView):
 
         return HttpResponseRedirect('/listarMovimientosFinancieros/')
 
+    def get(self, request, pk):
+
+        mf = MovimientoFinanciero.objects.get(pk=pk)
+
+        if request.user != mf.user:
+
+            return HttpResponseRedirect('/listarMovimientosFinancieros/')
+
+        else:
+            
+            form = self.form_class(instance=mf)
+            
+            return render(request, self.template_name, {'form': form})
+            
+
 @method_decorator(login_required(login_url='/'), name='dispatch')
 class MovimientoFinancieroDelete(DeleteView):
     model = MovimientoFinanciero
     form_class = MovimientoFinancieroForm
     template_name = 'confirmarEliminarMovimientoFinanciero.html'
     success_url = reverse_lazy('listarMovimientosFinancieros')
+
+    def get(self, request, pk):
+
+        mf = MovimientoFinanciero.objects.get(pk=pk)
+
+        if request.user != mf.user:
+
+            return HttpResponseRedirect('/listarMovimientosFinancieros/')
+
+        else:
+            
+            return render(request, self.template_name)
 
 class IndexLogin(TemplateView):
     template_name = 'indexLogin.html'
