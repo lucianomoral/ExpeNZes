@@ -30,4 +30,4 @@ class Cuenta (models.Model):
     saldo = models.DecimalField(decimal_places=2, max_digits=20)
 
     def __str__(self):
-        return self.nombre
+        return '{} - {}'.format(self.nombre, self.user)
