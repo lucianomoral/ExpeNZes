@@ -10,8 +10,10 @@
     
         <p> {{ form.monto.label }} {{ form.monto }} </p>
         <p> {{ form.categoria_movimiento_financiero.label }} {{ form.categoria_movimiento_financiero }} </p>
+        <p> {{ form.cuenta.label }} {{ form.cuenta }} </p>
         <p> {{ form.fecha.label }} {{ form.fecha }} </p>
         <p> {{ form.comentario.label }} {{ form.comentario }} </p>
+
     
     <button type="submit"> {% block label_boton_accion %} {% endblock label_boton_accion %} </button>
     <button> <a href="{% url 'listarMovimientosFinancieros' %}"> Volver </a></button>

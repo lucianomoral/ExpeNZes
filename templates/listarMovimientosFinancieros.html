@@ -9,9 +9,27 @@
 <table border=2>
     <thead>
         <tr>
+            <th>Cuenta</th>
+            <th>Saldo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cuenta in cuentas %}
+        <tr>
+            <td> {{ cuenta.nombre }} </td>
+            <td> {{ cuenta.saldo }} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table border=2>
+    <thead>
+        <tr>
             <th>Fecha</th>
             <th>Concepto</th>
             <th>Monto</th>
+            <th>Cuenta</th>
             <th>Comentario</th>
             <th>id</th>
             <th>Editar</th>
@@ -19,11 +37,12 @@
         </tr>
     </thead>
     <tbody>
-        {% for movimiento_financiero in object_list %}
+        {% for movimiento_financiero in movimientos_financieros %}
         <tr>
             <td> {{ movimiento_financiero.fecha }} </td>
             <td> {{ movimiento_financiero.categoria_movimiento_financiero }} </td>
             <td> {{ movimiento_financiero.monto }} </td>
+            <td> {{ movimiento_financiero.cuenta }} </td>
             <td> {{ movimiento_financiero.comentario }} </td>
             <td> {{ movimiento_financiero.id }} </td>
             <td> <a href="{% url 'actualizarMovimientoFinanciero' movimiento_financiero.id %}"> Editar </a> </td>

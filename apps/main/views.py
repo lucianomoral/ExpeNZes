@@ -13,7 +13,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, T
 
 #Models
 #from django.contrib.auth.models import User
-from .models import CategoriaMovimientoFinanciero, MovimientoFinanciero
+from .models import CategoriaMovimientoFinanciero, MovimientoFinanciero, Cuenta
 
 #Forms
 from .forms import MovimientoFinancieroForm
@@ -26,7 +26,7 @@ class MovimientoFinancieroList(ListView):
     model = MovimientoFinanciero
     template_name = 'listarMovimientosFinancieros.html'
 
-    def get_queryset(self):
+    """def get_queryset(self):
 
         if self.request.user.is_authenticated:
 
@@ -34,7 +34,17 @@ class MovimientoFinancieroList(ListView):
             
             self.queryset = movimientos_financieros_de_usuario_logueado
 
-            return self.queryset
+            return self.queryset"""
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(MovimientoFinancieroList, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        
+        context['cuentas'] = Cuenta.objects.filter(user = self.request.user)
+        context['movimientos_financieros'] = self.model.objects.filter(user = self.request.user)
+
+        return context
 
 @method_decorator(login_required(login_url='/'), name='dispatch')
 class MovimientoFinancieroCreate(CreateView):
@@ -55,7 +65,24 @@ class MovimientoFinancieroCreate(CreateView):
 
             form_con_user.save()
 
+            #Acá se implementaría la lógica para cambiar el saldo de la cuenta al crear
+
+            c = Cuenta.objects.get(pk=form_con_user.cuenta.id)
+
+            c.saldo = c.saldo + form_con_user.monto
+
+            c.save()
+
             return HttpResponseRedirect('/listarMovimientosFinancieros/')
+
+    def get(self, request, *args, **kwargs):
+
+        form = self.form_class()
+
+        form.fields['cuenta'].queryset = Cuenta.objects.filter(user=request.user)
+
+        return render(request, self.template_name, {'form': form})
+
 
 @method_decorator(login_required(login_url='/'), name='dispatch')
 class MovimientoFinancieroUpdate(UpdateView):
@@ -74,6 +101,8 @@ class MovimientoFinancieroUpdate(UpdateView):
 
             form.save()
 
+            #Acá se va a implementar la lógica para editar el saldo de la cuenta
+
         return HttpResponseRedirect('/listarMovimientosFinancieros/')
 
     def get(self, request, pk):
@@ -87,6 +116,8 @@ class MovimientoFinancieroUpdate(UpdateView):
         else:
             
             form = self.form_class(instance=mf)
+
+            form.fields['cuenta'].queryset = Cuenta.objects.filter(user=request.user)
             
             return render(request, self.template_name, {'form': form})
             
