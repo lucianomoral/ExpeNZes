@@ -95,13 +95,21 @@ class MovimientoFinancieroUpdate(UpdateView):
         
         mf = MovimientoFinanciero.objects.get(pk=pk)
 
+        monto_anterior = mf.monto
+
         form = self.form_class(request.POST, instance=mf)
 
         if form.is_valid():
 
-            form.save()
-
             #Acá se va a implementar la lógica para editar el saldo de la cuenta
+
+            c = Cuenta.objects.get(pk=form.cleaned_data['cuenta'].id)
+
+            c.saldo = c.saldo - monto_anterior + form.cleaned_data['monto']
+
+            c.save()
+
+            form.save()
 
         return HttpResponseRedirect('/listarMovimientosFinancieros/')
 
@@ -140,6 +148,26 @@ class MovimientoFinancieroDelete(DeleteView):
         else:
             
             return render(request, self.template_name)
+
+    def post(self, request, pk):
+
+        mf = MovimientoFinanciero.objects.get(pk=pk)
+
+        if request.user != mf.user:
+
+            return HttpResponseRedirect('/listarMovimientosFinancieros/')
+
+        else:
+        
+            c = Cuenta.objects.get(pk = mf.cuenta.id)
+
+            c.saldo = c.saldo - mf.monto
+
+            c.save()
+
+            mf.delete()
+
+            return HttpResponseRedirect('/listarMovimientosFinancieros/')
 
 class IndexLogin(TemplateView):
     template_name = 'indexLogin.html'
