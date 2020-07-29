@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect
 
-
 #Views
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 #from django.contrib.auth import views as auth_views

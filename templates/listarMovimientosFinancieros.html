@@ -39,11 +39,17 @@
     <tbody>
         {% for movimiento_financiero in movimientos_financieros %}
         <tr>
-            <td> {{ movimiento_financiero.fecha }} </td>
+            <td> {{ movimiento_financiero.fecha|date:'d/m/Y' }} </td>
             <td> {{ movimiento_financiero.categoria_movimiento_financiero }} </td>
             <td> {{ movimiento_financiero.monto }} </td>
             <td> {{ movimiento_financiero.cuenta }} </td>
-            <td> {{ movimiento_financiero.comentario }} </td>
+            <td>
+                {% if movimiento_financiero.comentario %}
+                {{ movimiento_financiero.comentario }}
+                {% else %}
+                &nbsp;
+                {% endif %}
+            </td>
             <td> {{ movimiento_financiero.id }} </td>
             <td> <a href="{% url 'actualizarMovimientoFinanciero' movimiento_financiero.id %}"> Editar </a> </td>
             <td> <a href="{% url 'eliminarMovimientoFinanciero' movimiento_financiero.id %}"> Eliminar </a> </td>

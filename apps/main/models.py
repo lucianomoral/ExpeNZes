@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -17,7 +18,7 @@ class MovimientoFinanciero (models.Model):
     cuenta = models.ForeignKey('Cuenta', on_delete = models.PROTECT)
     #cuenta = models.IntegerField()
     comentario = models.CharField(max_length=1000, null=True, blank=True)
-    fecha = models.DateField()
+    fecha = models.DateField(default=timezone.now())
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
     def __str__(self):
