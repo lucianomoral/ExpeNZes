@@ -2,15 +2,14 @@
 {% block titulo %} Eliminar movimiento {% endblock titulo %}
 {% block cuerpo %}
 
-
 <form method="post">
 
     {% csrf_token %}
 
     <h1> Está seguro que desea eliminar el movimiento? </h1>
 
-<button type="submit"> Confirmar </button>
-<button> <a href="{% url 'listarMovimientosFinancieros' %}"> Volver </a></button>
+<button class="btn btn-danger" type="submit"> Confirmar </button>
+<a class="btn btn-light" href="{% url 'listarMovimientosFinancieros' %}"> Volver </a>
 
 </form>
 {% endblock cuerpo %}

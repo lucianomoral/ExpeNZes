@@ -2,20 +2,50 @@
 
 {% block cuerpo %}
 
-    <h1> {% block header1 %} {% endblock header1 %} </h1>   
+    {% load widget_tweaks %}
+
+    <h3> {% block header1 %} {% endblock header1 %} </h3>   
 
     <form method="post">
-
         {% csrf_token %}
+
+        <div class="form-group form-inline ">
+            {{ form.monto.label }}
+            {{ form.monto|add_class:"form-control" }}
+        </div>
+
+        <div class="form-group form-inline ">
+            {{ form.categoria_movimiento_financiero.label }}
+            {{ form.categoria_movimiento_financiero|add_class:"form-control" }}
+        </div>
+
+        <div class="form-group form-inline ">
+            {{ form.cuenta.label }} 
+            {{ form.cuenta|add_class:"form-control" }}
+        </div>
+
+        <div class="form-group form-inline ">
+            {{ form.fecha.label }} 
+            {{ form.fecha|add_class:"form-control"|attr:"type:date" }}
+        </div>
+
+
+        <div class="form-group form-inline ">
+            {{ form.comentario.label }} 
+            {{ form.comentario|add_class:"form-control"}}
+        </div>
     
-        <p> {{ form.monto.label }} {{ form.monto }} </p>
-        <p> {{ form.categoria_movimiento_financiero.label }} {{ form.categoria_movimiento_financiero }} </p>
-        <p> {{ form.cuenta.label }} {{ form.cuenta }} </p>
-        <p> {{ form.fecha.label }} {{ form.fecha }} </p>
-        <p> {{ form.comentario.label }} {{ form.comentario }} </p>
+        <button class="btn btn-success" type="submit"> 
+            {% block label_boton_accion %} {% endblock label_boton_accion %} 
+            <span class="fa fa-save" aria-hidden="true"></span>
+        </button>
+        <a class="btn btn-light" href="{% url 'listarMovimientosFinancieros' %}"> 
+            Volver
+            <span class="fa fa-reply" aria-hidden="true"></span>
+         </a>
 
     
-    <button type="submit"> {% block label_boton_accion %} {% endblock label_boton_accion %} </button>
-    <button> <a href="{% url 'listarMovimientosFinancieros' %}"> Volver </a></button>
+
+    </form>
 
 {% endblock cuerpo %}
