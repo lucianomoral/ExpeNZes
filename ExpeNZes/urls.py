@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from apps.main.views import MovimientoFinancieroList, MovimientoFinancieroCreate, MovimientoFinancieroUpdate, MovimientoFinancieroDelete, IndexLogin, log_user_out, IndexLoginError#, validateLogin
+from apps.main.views import CuentaList, MovimientoFinancieroList, MovimientoFinancieroCreate, MovimientoFinancieroUpdate, MovimientoFinancieroDelete, IndexLogin, log_user_out, IndexLoginError, CuentaList, CuentaCreate, CuentaUpdate, CuentaDelete, CategoriaMovimientoFinancieroList, CategoriaMovimientoFinancieroCreate, CategoriaMovimientoFinancieroUpdate, CategoriaMovimientoFinancieroDelete #, validateLogin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,12 @@ urlpatterns = [
     path('crearMovimientoFinanciero/', MovimientoFinancieroCreate.as_view(), name='crearMovimientoFinanciero'),
     path('actualizarMovimientoFinanciero/<int:pk>', MovimientoFinancieroUpdate.as_view(), name='actualizarMovimientoFinanciero'),
     path('eliminarMovimientoFinanciero/<int:pk>', MovimientoFinancieroDelete.as_view(), name='eliminarMovimientoFinanciero'),
+    path('listarCuentas/', CuentaList.as_view(), name='listarCuentas'),
+    path('crearCuenta/', CuentaCreate.as_view(), name='crearCuenta'),
+    path('actualizarCuenta/<int:pk>', CuentaUpdate.as_view(), name='actualizarCuenta'),
+    path('eliminarCuenta/<int:pk>', CuentaDelete.as_view(), name='eliminarCuenta'),
+    path('listarCategoriasMovimientoFinanciero/', CategoriaMovimientoFinancieroList.as_view(), name='listarCategoriasMovimientoFinanciero'),
+    path('crearCategoriaMovimientoFinanciero/', CategoriaMovimientoFinancieroCreate.as_view(), name='crearCategoriaMovimientoFinanciero'),
+    path('actualizarCategoriaMovimientoFinanciero/<int:pk>', CategoriaMovimientoFinancieroUpdate.as_view(), name='actualizarCategoriaMovimientoFinanciero'),
+    path('eliminarCategoriaMovimientoFinanciero/<int:pk>', CategoriaMovimientoFinancieroDelete.as_view(), name='eliminarCategoriaMovimientoFinanciero'),
 ]

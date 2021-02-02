@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block cuerpo %}
+
+    {% load widget_tweaks %}
+
+    <h3> {% block header1 %} {% endblock header1 %} </h3>   
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group form-inline ">
+            {{ form.nombre.label }}
+            {{ form.nombre|add_class:"form-control" }}
+        </div>
+
+        <div class="form-group form-inline ">
+            Tipo:
+            {{ form.tipo_categoria_movimiento_financiero|add_class:"form-control" }}
+        </div>
+    
+        <button class="btn btn-success" type="submit"> 
+            {% block label_boton_accion %} {% endblock label_boton_accion %} 
+            <span class="fa fa-save" aria-hidden="true"></span>
+        </button>
+        <a class="btn btn-light" href="{% url 'listarCategoriasMovimientoFinanciero' %}"> 
+            Volver
+            <span class="fa fa-reply" aria-hidden="true"></span>
+         </a>
+
+    </form>
+
+{% endblock cuerpo %}

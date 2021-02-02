@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block titulo %} Lista de Categorias {% endblock titulo %}
+{% block cuerpo %}
+
+<p>
+    <h3> Categorias </h3>
+    <a class="btn btn-dark" href="{% url 'crearCategoriaMovimientoFinanciero' %}"> 
+        Crear 
+        <span class="fa fa-plus" aria-hidden="true"></span>
+    </a>
+</p>
+
+<table class="table table-bordered table-sm table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for categoria in object_list %}
+        <tr>
+            <td> {{ categoria.nombre }} </td>
+            <td> {% if categoria.tipo_categoria_movimiento_financiero == 0 %} GASTO {% else %} INGRESO {% endif %}</td>
+            <td> 
+                <a class="btn btn-primary" href="{% url 'actualizarCategoriaMovimientoFinanciero' categoria.id %}"> 
+                    <span class="fa fa-edit" aria-hidden="true"></span>
+                </a>
+            </td>
+            <td> 
+                <a class="btn btn-danger" href="{% url 'eliminarCategoriaMovimientoFinanciero' categoria.id %}">
+                    <span class="fa fa-trash" aria-hidden="true"></span>
+                </a> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-light" href="{% url 'listarMovimientosFinancieros' %}"> Volver </a>
+
+{% endblock cuerpo %}

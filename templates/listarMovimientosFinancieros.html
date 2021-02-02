@@ -14,6 +14,7 @@
     <thead class="table-dark" >
         <tr>
             <th>Cuenta</th>
+            <th>Moneda</th>
             <th>Saldo</th>
         </tr>
     </thead>
@@ -21,6 +22,7 @@
         {% for cuenta in cuentas %}
         <tr>
             <td> {{ cuenta.nombre }} </td>
+            <td> {{ cuenta.moneda }} </td>
             <td> {{ cuenta.saldo }} </td>
         </tr>
         {% endfor %}
@@ -33,7 +35,7 @@
     <thead class="table-dark">
         <tr>
             <th>Fecha</th>
-            <th>Concepto</th>
+            <th>Categoria</th>
             <th>Monto</th>
             <th>Cuenta</th>
             <th>Comentario</th>

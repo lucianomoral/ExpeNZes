@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block titulo %} Eliminar categoria {% endblock titulo %}
+{% block cuerpo %}
+
+
+{% if mensaje %}
+
+<div class="alert alert-danger" role="alert"> {{ mensaje }} </div>
+
+{% else %}
+<form method="post">
+
+    {% csrf_token %}
+
+    <h1> Está seguro que desea eliminar la categoria? </h1>
+
+<button class="btn btn-danger" type="submit"> Confirmar </button>
+
+{% endif %}
+
+<a class="btn btn-light" href="{% url 'listarCategoriasMovimientoFinanciero' %}"> Volver </a>
+
+</form>
+{% endblock cuerpo %}

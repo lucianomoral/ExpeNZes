@@ -6,17 +6,58 @@
 
     <h3> {% block header1 %} {% endblock header1 %} </h3>   
 
+    <script>
+
+        function actualizarColorYTextoTipoCategoriaMovimientoFinanciero(){
+
+            $("#id_tipo_categoria_movimiento_financiero").val( $("#id_categoria_movimiento_financiero").val() )
+
+            if ( $("#id_tipo_categoria_movimiento_financiero option:selected").text() == "GASTO" )
+            {
+                $("#id_tipo_categoria_movimiento_financiero").removeClass("bg-success").addClass('bg-danger text-white');
+
+            } else if ( $("#id_tipo_categoria_movimiento_financiero option:selected").text() == "INGRESO" ) 
+            
+            {
+
+                $("#id_tipo_categoria_movimiento_financiero").removeClass("bg-danger").addClass('bg-success text-white');
+
+            }
+
+            else 
+            {
+                $("#id_tipo_categoria_movimiento_financiero").removeClass("bg-danger bg-success text-white");
+            }
+
+        }
+
+        $(document).ready(function(){
+
+            actualizarColorYTextoTipoCategoriaMovimientoFinanciero()
+
+            $("#id_categoria_movimiento_financiero").change(function(){
+
+                actualizarColorYTextoTipoCategoriaMovimientoFinanciero()
+            })
+        }) 
+    </script>
+
     <form method="post">
         {% csrf_token %}
 
         <div class="form-group form-inline ">
-            {{ form.monto.label }}
-            {{ form.monto|add_class:"form-control" }}
+            <label for="">Categoría:</label>
+            {{ form.categoria_movimiento_financiero|add_class:"form-control" }}
         </div>
 
         <div class="form-group form-inline ">
-            {{ form.categoria_movimiento_financiero.label }}
-            {{ form.categoria_movimiento_financiero|add_class:"form-control" }}
+            <label for="">Tipo:</label>
+            {{ form.tipo_categoria_movimiento_financiero|add_class:"form-control"|attr:"disabled" }}
+        </div>
+
+        <div class="form-group form-inline ">
+            {{ form.monto.label }}
+            {{ form.monto|add_class:"form-control" }}
         </div>
 
         <div class="form-group form-inline ">
